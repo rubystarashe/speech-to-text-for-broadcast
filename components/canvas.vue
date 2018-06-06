@@ -69,6 +69,7 @@ export default {
       this.canva.beginPath()
       this.colorpickerToggle = false
       this.$electron.ipcRenderer.send('mouseIgnoreToggle', true)
+      this.$electron.ipcRenderer.send('whiteboardToggle', false)
     },
     touchDown(e) {
       this.mouseToggle = true
@@ -109,6 +110,7 @@ export default {
   },
   beforeDestory() {
     this.$electron.ipcRenderer.removeListener('canvasReset', () => {})
+    this.$electron.ipcRenderer.removeListener('whiteboardToggle', () => {})
   }
 }
 </script>

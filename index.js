@@ -71,14 +71,19 @@ app.on('ready', () => {
   const globalShortcut = electron.globalShortcut
   let mouseIgnoreToggle = true
   let mousepointToggle = true
+  let whiteboardToggle = false
   globalShortcut.register('Alt+D', () => {
     mouseIgnoreToggle = !mouseIgnoreToggle
-    win.webContents.send('mouseIgnoreToggle', !mouseIgnoreToggle)
+    win.webContents.send('canvasToggle', !mouseIgnoreToggle)
     win.setIgnoreMouseEvents(mouseIgnoreToggle)
   })
   globalShortcut.register('Alt+C', () => {
     mousepointToggle = !mousepointToggle
     win.webContents.send('mousepointToggle', mousepointToggle)
+  })
+  globalShortcut.register('Alt+W', () => {
+    whiteboardToggle = !whiteboardToggle
+    win.webContents.send('whiteboardToggle', whiteboardToggle)
   })
   globalShortcut.register('Alt+R', () => {
     win.webContents.send('canvasReset')
@@ -86,6 +91,10 @@ app.on('ready', () => {
   ipcMain.on('mouseIgnoreToggle', (e, mes) => {
     mouseIgnoreToggle = mes
     win.setIgnoreMouseEvents(mouseIgnoreToggle)
+  })
+  ipcMain.on('whiteboardToggle', (e, mes) => {
+    whiteboardToggle = mes
+    win.webContents.send('whiteboardToggle', whiteboardToggle)
   })
   setInterval(() => {
     win.setAlwaysOnTop(true);
