@@ -70,10 +70,15 @@ app.on('ready', () => {
   newWin()
   const globalShortcut = electron.globalShortcut
   let mouseIgnoreToggle = true
-  globalShortcut.register('Alt+C', () => {
+  let mousepointToggle = true
+  globalShortcut.register('Alt+D', () => {
     mouseIgnoreToggle = !mouseIgnoreToggle
     win.webContents.send('mouseIgnoreToggle', !mouseIgnoreToggle)
     win.setIgnoreMouseEvents(mouseIgnoreToggle)
+  })
+  globalShortcut.register('Alt+C', () => {
+    mousepointToggle = !mousepointToggle
+    win.webContents.send('mousepointToggle', mousepointToggle)
   })
   globalShortcut.register('Alt+R', () => {
     win.webContents.send('canvasReset')
@@ -85,6 +90,11 @@ app.on('ready', () => {
   setInterval(() => {
     win.setAlwaysOnTop(true);
   }, 100)
+
+  const robot = require("robotjs")
+  setInterval(() => {
+    win.webContents.send('mouse', robot.getMousePos())
+  }, 1)
 })
 app.on('window-all-closed', () => app.quit())
 app.on('activate', () => win === null && newWin())

@@ -36,7 +36,8 @@ export default {
         x: 0,
         y: 0
       },
-      colorpickerToggle: false
+      colorpickerToggle: false,
+      mousepointer: null
     }
   },
   computed: {
@@ -103,6 +104,7 @@ export default {
     
     this.$electron.ipcRenderer.on('canvasReset', (event, mes) => {
       this.clear()
+      this.$emit('off', false)
     })
   },
   beforeDestory() {

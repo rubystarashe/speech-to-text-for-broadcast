@@ -1,10 +1,11 @@
 <template>
 <div>
-  <canvasArea id="canvasArea" :toggle="canvasToggle"/>
+  <canvasArea id="canvasArea" :toggle="canvasToggle" @off="canvasToggleOff"/>
   <div id="area">
     <div class="text" v-if="!socketToggle">기다리는 중입니다... 현재 열려있는 포트: {{port}}</div>
     <div v-else class="text hidden" v-for="m in mes" :key="m">{{m}}</div>
   </div>
+  <div :style="{ opacity: mousepointToggle ? 1 : 0 }" id="mousepointer"></div>
 </div>
 </template>
 
@@ -34,7 +35,7 @@ body {
   background: black;
 
   box-shadow: 1vh 0 0 black, -1vh 0 0 black;
-
+  pointer-events: none;
 }
 @keyframes hidden {
   0% { opacity: 1 }
@@ -42,6 +43,14 @@ body {
 }
 .hidden {
   animation: hidden 1s 5s forwards;
+}
+#mousepointer {
+  position: fixed;
+  width: 2vh;
+  height: 2vh;
+  border: .3vh solid red;
+  border-radius: 50%;
+  pointer-events: none;
 }
 </style>
 
@@ -57,7 +66,21 @@ export default {
       port: null,
       socketToggle: false,
       mes: [],
-      canvasToggle: false
+      canvasToggle: false,
+      mouse: {},
+      mousepointToggle: true
+    }
+  },
+  watch: {
+    mouse: function() {
+      this.mousepointer = document.getElementById("mousepointer")
+      this.mousepointer.style.top = (this.mouse.y - (window.innerHeight * 0.013)) + 'px'
+      this.mousepointer.style.left = (this.mouse.x - (window.innerHeight * 0.013)) + 'px'
+    }
+  },
+  methods: {
+    canvasToggleOff() {
+      this.canvasToggle = false
     }
   },
   mounted() {
@@ -73,6 +96,12 @@ export default {
     })
     this.$electron.ipcRenderer.on('mouseIgnoreToggle', (event, mes) => {
       this.canvasToggle = mes
+    })
+    this.$electron.ipcRenderer.on('mousepointToggle', (event, mes) => {
+      this.mousepointToggle = mes
+    })
+    this.$electron.ipcRenderer.on('mouse', (event, mes) => {
+      this.mouse = mes
     })
   },
   beforeDestroy() {
