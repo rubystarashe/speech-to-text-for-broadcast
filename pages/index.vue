@@ -18,6 +18,7 @@ body {
   margin: 0;
 }
 #whiteboard {
+  pointer-events: none;
   position: absolute;
   width: 100%;
   height: 100%;
@@ -36,6 +37,7 @@ body {
   flex-direction: column;
   color: white;
   font-size: 4vh;
+  pointer-events: none;
 }
 .text {
   text-align: center;
