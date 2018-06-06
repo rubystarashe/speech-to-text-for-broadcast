@@ -2,11 +2,8 @@
 <div>
   <canvasArea id="canvasArea" :toggle="canvasToggle"/>
   <div id="area">
-    <div class="text" v-if="!socketToggle">
-    기다리는 중입니다... 현재 열려있는 포트: {{port}}</div>
-    <div v-else class="text hidden" v-for="m in mes" :key="m">
-      {{m}}
-    </div>
+    <div class="text" v-if="!socketToggle">기다리는 중입니다... 현재 열려있는 포트: {{port}}</div>
+    <div v-else class="text hidden" v-for="m in mes" :key="m">{{m}}</div>
   </div>
 </div>
 </template>

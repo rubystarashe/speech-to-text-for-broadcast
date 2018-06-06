@@ -82,6 +82,9 @@ app.on('ready', () => {
     mouseIgnoreToggle = mes
     win.setIgnoreMouseEvents(mouseIgnoreToggle)
   })
+  setInterval(() => {
+    win.setAlwaysOnTop(true);
+  }, 100)
 })
 app.on('window-all-closed', () => app.quit())
 app.on('activate', () => win === null && newWin())

@@ -56,7 +56,7 @@ export default {
       //this.canva.clearRect(0, 0, this.canva_loc.right, this.canva_loc.bottom)
       this.canva.lineTo(this.mouse_inarea.x, this.mouse_inarea.y)
       this.canva.strokeStyle = this.color
-      this.canva.lineWidth = 2
+      this.canva.lineWidth = 3
       this.canva.stroke()
     },
     drawEnd() {
@@ -113,7 +113,7 @@ export default {
 
 <style>
 @keyframes blink {
-  50% { filter: brightness(.7) }
+  50% { filter: brightness(.9) }
 }
 
 #canvas {
