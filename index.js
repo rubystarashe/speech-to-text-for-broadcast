@@ -70,7 +70,6 @@ app.on('ready', () => {
   newWin()
   const globalShortcut = electron.globalShortcut
   let mouseIgnoreToggle = true
-  let mousepointToggle = true
   let whiteboardToggle = false
   globalShortcut.register('Alt+D', () => {
     mouseIgnoreToggle = !mouseIgnoreToggle
@@ -78,8 +77,7 @@ app.on('ready', () => {
     win.setIgnoreMouseEvents(mouseIgnoreToggle)
   })
   globalShortcut.register('Alt+C', () => {
-    mousepointToggle = !mousepointToggle
-    win.webContents.send('mousepointToggle', mousepointToggle)
+    win.webContents.send('mousepointToggle')
   })
   globalShortcut.register('Alt+W', () => {
     whiteboardToggle = !whiteboardToggle
@@ -87,6 +85,9 @@ app.on('ready', () => {
   })
   globalShortcut.register('Alt+R', () => {
     win.webContents.send('canvasReset')
+  })
+  globalShortcut.register('Alt+H', () => {
+    win.webContents.send('textToggle')
   })
   ipcMain.on('mouseIgnoreToggle', (e, mes) => {
     mouseIgnoreToggle = mes

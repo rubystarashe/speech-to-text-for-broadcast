@@ -12,6 +12,8 @@ dist
 
 #Electron package
 speech-to-text-for-broadcast-win32-x64
+studytool-win32-x64
+windows-installer
 
 #VS Code
 .vscode

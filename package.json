@@ -1,15 +1,17 @@
 {
-  "name": "speech-to-text-for-broadcast",
+  "name": "studytool",
   "version": "1.0.0",
-  "description": "",
+  "description": "Rubystarashe's study tool",
   "private": true,
+  "productName": "studytool",
   "main": "index.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=DEV electron .",
     "start": "electron .",
     "build": "nuxt build",
-    "electron-rebuild": "./node_modules/.bin/electron-rebuild",
-    "pack": "npm run build && electron-packager ./ --overwrite"
+    "electron-rebuild": "electron-rebuild",
+    "pack": "npm run build && electron-packager ./ --overwrite --icon=assets/icon.ico",
+    "windows-installer": "node build"
   },
   "author": "Rubystar Ashe <rubystarashe@gmail.com> (https://github.io/rubystarashe)",
   "license": "ISC",
@@ -28,5 +30,13 @@
     "node-sass": "^4.9.0",
     "sass-loader": "^7.0.2",
     "vue-devtools": "^4.1.4"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rubystarashe/speech-to-text-for-broadcast.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rubystarashe/speech-to-text-for-broadcast/issues"
+  },
+  "homepage": "https://github.com/rubystarashe/speech-to-text-for-broadcast#readme"
 }

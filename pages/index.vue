@@ -3,8 +3,8 @@
   <div id="whiteboard" :style="{ background: whiteboardToggle ? 'white' : 'none'}"></div>
   <canvasArea id="canvasArea" :toggle="canvasToggle" @off="canvasToggleOff"/>
   <div id="area">
-    <div class="text" v-if="!socketToggle">기다리는 중입니다... 현재 열려있는 포트: {{port}}</div>
-    <div v-else class="text hidden" v-for="m in mes" :key="m">{{m}}</div>
+    <div class="text" v-if="!socketToggle && textToggle">기다리는 중입니다... 현재 열려있는 포트: {{port}}</div>
+    <div v-else-if="textToggle" class="text hidden" v-for="m in mes" :key="m">{{m}}</div>
   </div>
   <div :style="{ opacity: mousepointToggle ? 1 : 0 }" id="mousepointer"></div>
 </div>
@@ -77,8 +77,9 @@ export default {
       mes: [],
       canvasToggle: false,
       mouse: {},
-      mousepointToggle: true,
-      whiteboardToggle: false
+      mousepointToggle: false,
+      whiteboardToggle: false,
+      textToggle: true
     }
   },
   watch: {
@@ -112,7 +113,10 @@ export default {
       }
     })
     this.$electron.ipcRenderer.on('mousepointToggle', (event, mes) => {
-      this.mousepointToggle = mes
+      this.mousepointToggle = !this.mousepointToggle
+    })
+    this.$electron.ipcRenderer.on('textToggle', (event, mes) => {
+      this.textToggle = !this.textToggle
     })
     this.$electron.ipcRenderer.on('mouse', (event, mes) => {
       this.mouse = mes
